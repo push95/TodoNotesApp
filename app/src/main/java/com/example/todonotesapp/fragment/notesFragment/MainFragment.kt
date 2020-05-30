@@ -1,4 +1,4 @@
-package com.example.todonotesapp.fragment
+package com.example.todonotesapp.fragment.notesFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +13,7 @@ import com.example.todonotesapp.model.Notes
 import com.example.todonotesapp.R
 import com.example.todonotesapp.activity.MainActivity
 import com.example.todonotesapp.adapter.NotesAdapter
-import com.example.todonotesapp.viewmodel.AddListDataViewModel
+import com.example.todonotesapp.fragment.notesFragment.AddNotesFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -24,7 +24,7 @@ class MainFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     private var mTitleTv: TextView? = null
     private var mTitleDesc: TextView? = null
-    private lateinit var addListDataViewModel: AddListDataViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +47,8 @@ class MainFragment : Fragment() {
                 notesAdapter!!.update(it as  ArrayList<Notes>)
         })
         fab.setOnClickListener {
-            val addNotesFragment = AddNotesFragment()
+            val addNotesFragment =
+                AddNotesFragment()
             val fragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction.replace(R.id.container, addNotesFragment)
             fragmentTransaction.addToBackStack(null)

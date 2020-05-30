@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.todonotesapp.model.Notes
 
 class MainActivityViewModel : ViewModel() {
-
     val notesListViewModel = MutableLiveData<MutableList<Notes>>()
 
 }
