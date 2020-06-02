@@ -1,117 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:gravity="center"
-    tools:context=".fragment.notesFragment.AddNotesFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
 
-        <TextView
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout4"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Add Title "
-            android:textSize="18dp"
-            android:textColor="@color/colorGrey"
-            android:fontFamily="sans-serif-condensed-medium"/>
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="201dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="402dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter The Title" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout5"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@null"
-            android:hint="Enter The Title"
-            android:imeOptions="actionNext"
-            android:singleLine="true"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textColor="@color/colorBlack"
-            android:textSize="20dp" />
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="314dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height=".3dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorGrey"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter The Description" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Add  Description"
-            android:textSize="18dp"
-            android:textColor="@color/colorGrey"
-            android:fontFamily="sans-serif-condensed-medium"/>
-
-
-        <EditText
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@null"
-            android:hint="Enter The Description"
-            android:imeOptions="actionDone"
-            android:singleLine="true"
-            android:textColor="@color/colorBlack"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height=".3dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorGrey"
-            android:fontFamily="sans-serif-condensed-medium"/>
-
-
-    </LinearLayout>
-    <Button
-        android:id="@+id/btn_arrow_unselect"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/next_unselect"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"/>
-
-    <Button
-        android:id="@+id/btn_arrow_select"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:visibility="gone"
-        android:background="@drawable/next_select"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="20dp"/>
-
-    <!--<Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:background="@drawable/btn_bg"
-        android:layout_marginTop="60dp"
-        android:textColor="@color/colorWhite"
-        android:layout_gravity="center"/>-->
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="234dp"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-</RelativeLayout>
+</layout>
+

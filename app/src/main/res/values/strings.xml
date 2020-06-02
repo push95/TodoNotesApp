@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">TodoNotesApp</string>
+    <string name="facebook_app_id">266965021027166</string>
+    <string name="facebook_clientId">778432170267-3ep16jclpg7ojs9dp0ks4nqqovgmml23.apps.googleusercontent.com</string>
+    <string name="google_client_Android_id">778432170267-3ep16jclpg7ojs9dp0ks4nqqovgmml23.apps.googleusercontent.com</string>
+   <string name="google_client_web_Id">778432170267-h72ps75g4fv8ha9n01tdqcinelq4v1j1.apps.googleusercontent.com</string>
+    <string name="with_fb">Login with Facebook</string>
+    <string name="with_google">Login with Google</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

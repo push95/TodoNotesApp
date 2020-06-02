@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "778432170267",
+    "firebase_url": "https://dotted-hulling-278904.firebaseio.com",
+    "project_id": "dotted-hulling-278904",
+    "storage_bucket": "dotted-hulling-278904.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778432170267:android:ddc4b28648c33521b3abbe",
+        "android_client_info": {
+          "package_name": "com.example.todonotesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778432170267-2cqp9466e82417tatt3r90121fthgqrt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.todonotesapp",
+            "certificate_hash": "15188e3bf16ad6605cbaa15332e7d860de2e0600"
+          }
+        },
+        {
+          "client_id": "778432170267-a7n0shlc244ki30ksar763cpeeke63g4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3p2DWCKe0DyZV7r2qmATdQL8Veo_sXx0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778432170267-a7n0shlc244ki30ksar763cpeeke63g4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
