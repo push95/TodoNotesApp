@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+   android:background="@drawable/drawable_otp">
+
+
+
+    <TextView
+        android:id="@+id/tv_otp_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/otp_content"
+        android:textColor="@color/colorBlack"
+        android:layout_margin="@dimen/dimen20"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/ll_moblecontent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen10"
+        android:layout_marginLeft="@dimen/dimen10"
+        android:layout_marginRight="@dimen/dimen5"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_otp_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_otp_content">
+        <TextView
+            android:id="@+id/tv_mobile_number"
+            android:layout_weight=".7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Mobile Number"
+            android:textColor="@color/colorGrey"
+            android:textStyle="bold"
+            android:textSize="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/changeNumber"
+            android:layout_weight=".3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/change_number"
+            android:textColor="@color/colorGrey"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            app:layout_constraintRight_toLeftOf="@+id/tv_otp_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_otp_content"
+            />
+
+
+    </LinearLayout>
+
+    <com.chaos.view.PinView
+        android:id="@+id/pinview"
+        style="@style/PinWidget.PinView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="true"
+        android:hint="Hint."
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@+id/ll_moblecontent"
+        android:layout_margin="@dimen/dimen8"
+        android:background="@drawable/draw_otp"
+        android:padding="@dimen/dimen8"
+        android:textColor="@color/colorYellow3"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cursorWidth="2dp"
+        app:hideLineWhenFilled="false"
+        app:itemCount="6"
+        app:itemHeight="60dp"
+        app:itemRadius="4dp"
+        app:itemSpacing="10dp"
+        app:itemWidth="48dp"
+        app:lineColor="@color/colorGrey"
+        app:lineWidth="2dp"
+        app:viewType="rectangle" />
+
+    <!--<LinearLayout
+        android:id="@+id/ll_otp_boxex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        android:layout_margin="@dimen/dimen8"
+        app:layout_constraintTop_toBottomOf="@+id/ll_moble_content">
+
+        <EditText
+            android:id="@+id/et1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/dimen6"
+            android:background="@drawable/draw_otp"
+            android:gravity="center"
+            android:maxLength="1"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:singleLine="true" />
+
+
+        <EditText
+            android:id="@+id/et2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/dimen3"
+            android:padding="@dimen/dimen6"
+            android:maxLength="1"
+            android:background="@drawable/draw_otp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/dimen3"
+            android:padding="@dimen/dimen6"
+            android:maxLength="1"
+            android:background="@drawable/draw_otp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/dimen3"
+            android:padding="@dimen/dimen6"
+            android:maxLength="1"
+            android:background="@drawable/draw_otp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:maxLength="1"
+            android:layout_marginLeft="@dimen/dimen3"
+            android:padding="@dimen/dimen6"
+            android:background="@drawable/draw_otp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/et6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:maxLength="1"
+            android:layout_marginLeft="@dimen/dimen3"
+            android:padding="@dimen/dimen6"
+            android:background="@drawable/draw_otp"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:singleLine="true" />
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/ll_resendCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/dimen10"
+        app:layout_constraintLeft_toLeftOf="@+id/pinview"
+        app:layout_constraintTop_toBottomOf="@+id/pinview">
+
+        <TextView
+            android:id="@+id/resendCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resend_otp"
+            android:textColor="@color/colorBlack"
+            android:textSize="20dp"
+            android:layout_marginTop="@dimen/dimen14"
+            />
+
+        <TextView
+            android:id="@+id/OTPTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30"
+            android:visibility="gone"
+            android:textColor="@color/colorBlack"
+            android:textSize="20dp"
+            android:layout_marginTop="@dimen/dimen14"
+            android:layout_marginLeft="@dimen/dimen3"
+            app:layout_constraintRight_toRightOf="@+id/resendCode"
+            app:layout_constraintTop_toBottomOf="@+id/pinview"
+            />
+
+
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/btn_next"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:src="@drawable/next"
+        app:layout_constraintTop_toBottomOf="@+id/ll_resendCode"
+        app:layout_constraintRight_toRightOf="@+id/ll_resendCode"
+        android:layout_marginRight="@dimen/dimen15"
+        android:layout_marginBottom="@dimen/dimen3"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

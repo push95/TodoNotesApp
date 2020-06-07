@@ -3,8 +3,26 @@
     <string name="facebook_app_id">266965021027166</string>
     <string name="facebook_clientId">778432170267-3ep16jclpg7ojs9dp0ks4nqqovgmml23.apps.googleusercontent.com</string>
     <string name="google_client_Android_id">778432170267-3ep16jclpg7ojs9dp0ks4nqqovgmml23.apps.googleusercontent.com</string>
-   <string name="google_client_web_Id">778432170267-h72ps75g4fv8ha9n01tdqcinelq4v1j1.apps.googleusercontent.com</string>
-    <string name="with_fb">Login with Facebook</string>
-    <string name="with_google">Login with Google</string>
+    <string name="google_client_web_Id">778432170267-h72ps75g4fv8ha9n01tdqcinelq4v1j1.apps.googleusercontent.com</string>
+
+
+    <string name="with_firebase_mobile_sha_key">15188e3bf16ad6605cbaa15332e7d860de2e0600</string>
+
+    <!-- AssignMent Design-->
+    <string name="awesome">AWESOME!</string>
+    <string name="get_started">Let\'s Get Started </string>
+    <string name="news_content">NewsBulb uses login to personalize content</string>
+    <string name="with_fb">Enter with Facebook</string>
+    <string name="with_google">Enter with Google</string>
+    <string name="skip">Skip Login</string>
+    <string name="terms_conditions">By Signing in, I agree to<font fgcolor='#0000FF'> Terms &amp; Conditions</font> </string>
+    <string name="otp_content">PLEASE ENTER THE OTP RECEIVED ON YOUR NUMBER</string>
+    <string name="change_number">Change</string>
+    <string name="resend_otp">Resend OTP :</string>
+    <string name="not_receive">I do not wish to receive personalized content</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

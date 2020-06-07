@@ -56,15 +56,23 @@ dependencies {
     kapt "com.android.databinding:compiler:3.0.0-beta6"
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
+    implementation 'com.facebook.android:facebook-login:6.+'
+    // google
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
+    // country code picker
+    implementation 'com.hbb20:ccp:2.4.0'
 
     //firebase
-
-
     implementation 'com.firebaseui:firebase-ui-auth:3.2.1'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     // fb
     implementation 'com.facebook.android:facebook-login:6.+'
     // google
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.android.support:design:28.0.0'
+
+    // pin view for otp
+    implementation 'com.chaos.view:pinview:1.4.3'
 }
 apply plugin: 'com.google.gms.google-services'

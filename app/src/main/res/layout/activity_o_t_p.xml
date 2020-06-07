@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.anotherExample.OTPActivity">
+
+    <EditText
+        android:id="@+id/et_otpverify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="OTP"
+        android:inputType="number"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:textSize="20dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_otpVerify"
+        android:text="Verify"
+        android:textSize="@dimen/dimen20"/>
+
+    <TextView
+        android:id="@+id/otpFeedback"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OTP feedback"
+        android:textSize="30dp"/>
+
+</LinearLayout>

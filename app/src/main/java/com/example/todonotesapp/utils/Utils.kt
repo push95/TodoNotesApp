@@ -3,6 +3,8 @@ package com.example.todonotesapp.utils
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.example.todonotesapp.R
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 /**
  * Created by Pushpendra 30/05/2020
@@ -22,6 +24,10 @@ class Utils {
           mShowKey.toggleSoftInputFromWindow(view.applicationWindowToken ,InputMethodManager.SHOW_FORCED ,0)
           view.requestFocus()
       }
+
+        fun bottomDialog(context: Context? ,view: View){
+
+        }
     }
 
 }

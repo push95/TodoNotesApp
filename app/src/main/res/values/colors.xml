@@ -6,7 +6,18 @@
 
     <color name="colorFb">#4267B2</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorGrey">#808080</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorFab">#0000ff</color>
+
+
+    <!--Assingment color-->
+    <color name="colorBlue">#4267B2</color>
+    <color name="colorGrey">#898F9C</color>
+    <color name="colorGoogle">#F44336</color>
+    <color name="colorGgl">#CC3731</color>
+    <color name="colorYellow">#FFFF00</color>
+    <color name="colorYellow2">#CCCC00</color>
+    <color name="colorYellow3">#FFCA42</color>
+
+
 </resources>
