@@ -19,6 +19,7 @@
     <string name="otp_content">PLEASE ENTER THE OTP RECEIVED ON YOUR NUMBER</string>
     <string name="change_number">Change</string>
     <string name="resend_otp">Resend OTP :</string>
+    <string name="otp_success_msg">OTP Succesfully sent on your Mobile Number</string>
     <string name="not_receive">I do not wish to receive personalized content</string>
 
     <!-- TODO: Remove or change this placeholder text -->

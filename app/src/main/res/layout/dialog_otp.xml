@@ -60,7 +60,7 @@
 
     </LinearLayout>
 
-    <com.chaos.view.PinView
+   <!-- <com.chaos.view.PinView
         android:id="@+id/pinview"
         style="@style/PinWidget.PinView"
         android:layout_width="match_parent"
@@ -84,7 +84,42 @@
         app:itemWidth="48dp"
         app:lineColor="@color/colorGrey"
         app:lineWidth="2dp"
-        app:viewType="rectangle" />
+        app:viewType="rectangle" />-->
+
+
+   <!-- <com.mukesh.OtpView
+        style="@style/OtpWidget.OtpView"
+        android:id="@+id/otp_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:inputType="number"
+        android:itemBackground="@color/colorWhite"
+        app:itemCount="6"
+        app:viewType="rectangle"
+        android:layout_margin="@dimen/dimen8"
+        android:background="@drawable/draw_otp"
+        android:padding="@dimen/dimen8"
+        android:textColor="@color/colorYellow3"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:itemHeight="60dp"
+        app:itemRadius="4dp"
+        app:itemSpacing="10dp"
+        app:itemWidth="48dp"
+        app:lineColor="@color/colorGrey"
+        app:lineWidth="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/ll_moblecontent"/>-->
+
+    <EditText
+        android:id="@+id/et_verifyOtp_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:imeOptions="actionDone"
+        android:lines="1"
+        app:layout_constraintTop_toBottomOf="@+id/ll_moblecontent"/>
+
 
     <!--<LinearLayout
         android:id="@+id/ll_otp_boxex"
@@ -186,8 +221,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="@dimen/dimen10"
-        app:layout_constraintLeft_toLeftOf="@+id/pinview"
-        app:layout_constraintTop_toBottomOf="@+id/pinview">
+        app:layout_constraintLeft_toLeftOf="@+id/et_verifyOtp_dialog"
+        app:layout_constraintTop_toBottomOf="@+id/et_verifyOtp_dialog">
 
         <TextView
             android:id="@+id/resendCode"

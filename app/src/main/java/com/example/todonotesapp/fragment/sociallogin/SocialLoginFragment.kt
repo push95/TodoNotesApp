@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.todonotesapp.R
 import com.example.todonotesapp.databinding.FragmentSocialLoginBinding
+import com.example.todonotesapp.fragment.notesFragment.LoginFrag
 import com.example.todonotesapp.fragment.notesFragment.MainFragment
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -38,8 +40,9 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import com.hbb20.CountryCodePicker
+import com.mukesh.OnOtpCompletionListener
+import com.mukesh.OtpView
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.timer
 
 class SocialLoginFragment : Fragment() {
     /** GOOGLE SIGNIN **/
@@ -89,6 +92,7 @@ class SocialLoginFragment : Fragment() {
 
         binding.skipLogin.setOnClickListener {
             callNewFragment()
+
         }
 
         binding.llFbook!!.setOnClickListener {
@@ -100,7 +104,8 @@ class SocialLoginFragment : Fragment() {
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
                 override fun onSuccess(result: LoginResult?) {
                     Toast.makeText(context, "Login Success", Toast.LENGTH_LONG).show()
-                    callNewFragment()
+                    callLoginFragment()
+
                 }
 
                 override fun onCancel() {
@@ -112,35 +117,8 @@ class SocialLoginFragment : Fragment() {
 
                 }
             })
-
-        /* binding.etMobile.setOnEditorActionListener(){ v, actionId, event ->
-             if (actionId ==EditorInfo.IME_ACTION_DONE) {
-
-                *//* Custom EditText with otp generated *//*
-             *//* var countryCode: String = binding.etCountry!!.text.toString()
-               var phoneNumber: String = binding.etMobile!!.text.toString()
-                 completeNumber = "+$countryCode$phoneNumber"
-                if (countryCode.isNotEmpty() || phoneNumber.isNotEmpty()) {
-                    sendVerificationCode(completeNumber.toString())
-                }*//*
-                    completeNumber=binding.ccp!!.fullNumberWithPlus
-                if (completeNumber.toString().isNotEmpty()){
-                    sendVerificationCode(completeNumber.toString())
-                }
-                true
-            }
-                else{
-                    false
-                }
-
-
-
-
-        }*/
-
         binding.etMobile.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -150,25 +128,30 @@ class SocialLoginFragment : Fragment() {
                 ) {
                     binding.etMobile.error = "failed"
                 }
-
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 completeNumber = binding.ccp!!.fullNumberWithPlus
                 if (completeNumber.toString()
                         .isNotEmpty() && completeNumber.toString().length > 12
                 ) {
                     sendVerificationCode(completeNumber.toString())
+                    openBottomSheet(isOTPData.toString(),completeNumber)
                 }
             }
 
         })
 
-
         verificationCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
-                Toast.makeText(context, "Verification Completed", Toast.LENGTH_SHORT).show()
-                signInWithPhone(phoneAuthCredential);
+                //Toast.makeText(context, "Verification Completed", Toast.LENGTH_SHORT).show()
+                Log.d("verified" , "onVerificationCompleted$phoneAuthCredential")
+               var code: String= phoneAuthCredential.smsCode.toString()
+                        if (code != null){
+                            val credential  =PhoneAuthProvider.getCredential(mOTP.toString(),code)
+                            signInWithPhone(credential)
+
+                        }
+                //signInWithPhone(phoneAuthCredential);
             }
 
             override fun onVerificationFailed(exception: FirebaseException) {
@@ -181,33 +164,39 @@ class SocialLoginFragment : Fragment() {
                     Log.e("PHONEAUTh", "SMS Quote Exceeded")
                 }
             }
-
             override fun onCodeSent(otpCode: String, token: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(otpCode, token)
                 mOTP = otpCode
                 Toast.makeText(context, "Code Sent", Toast.LENGTH_SHORT).show()
-                /*  var data =Bundle()
-                  data.putString("hello" ,  "world")
-                  socialLoginFragment!!.arguments=data
-                  var values=socialLoginFragment
-                  openBottomSheet(values)*/
-                openBottomSheet()
             }
         }
         return binding.root
     }
 
-    private fun openBottomSheet() {
+
+    private fun openBottomSheet(mOTP: String, completeNumber: String?) {
         var bottomSheetFragment = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.dialog_otp, null)
         bottomSheetFragment.setContentView(view)
+        var number :String?=null
+        number=completeNumber
         var btnNext: ImageView? = null
         var resendCode: TextView? = null
+        var mMobileNumberTV: TextView? = null
+        var mOTPVerifyET: EditText? = null
         var changeNumber: TextView? = null
         var OTPTimer: TextView? = null
         btnNext = view.findViewById(R.id.btn_next)
         resendCode = view.findViewById(R.id.resendCode)
         OTPTimer = view.findViewById(R.id.OTPTimer)
+        mOTPVerifyET = view.findViewById(R.id.et_verifyOtp_dialog)
+        mMobileNumberTV=view.findViewById(R.id.tv_mobile_number)
+        mMobileNumberTV.text=number
+        if (mOTP !=null){
+            bottomSheetFragment.dismiss()
+
+        }
+        isOTPData =mOTPVerifyET.text.toString()
         resendCode.setOnClickListener {
             val timer = object : CountDownTimer(30000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
@@ -215,26 +204,25 @@ class SocialLoginFragment : Fragment() {
                     if (milis.toString().isEmpty()) {
                         OTPTimer.visibility = View.GONE
                     } else {
-                        OTPTimer.visibility=View.VISIBLE
+                        OTPTimer.visibility = View.VISIBLE
                         OTPTimer.text = milis.toString()
                     }
                 }
+
                 override fun onFinish() {
-                    sendVerificationCode(completeNumber.toString())
+                    sendVerificationCode(this@SocialLoginFragment.completeNumber.toString())
                 }
             }
             timer.start()
         }
         btnNext!!.setOnClickListener {
+callNewFragment()
+               /*val credential  =PhoneAuthProvider.getCredential(mOTP, isOTPData!!)
+               signInWithPhone(credential)*/
 
-            bottomSheetFragment.dismiss()
-            callNewFragment()
-        }
+           }
         bottomSheetFragment.show()
-
     }
-
-
     private fun callNewFragment() {
         val mainFragment = MainFragment()
         var transaction: FragmentTransaction =
@@ -248,9 +236,10 @@ class SocialLoginFragment : Fragment() {
         mFirebaseMobileAuth.signInWithCredential(credential)
             .addOnCompleteListener(OnCompleteListener<AuthResult> { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(context, "Login SuccessFull", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Incorrect OTP", Toast.LENGTH_SHORT).show()
+                  /*  Toast.makeText(context, "Login OTP SuccessFull", Toast.LENGTH_SHORT).show()*/
+                    callNewFragment()
+                } else{
+                    /*Toast.makeText(context, "Incorrect OTP", Toast.LENGTH_SHORT).show()*/
                 }
             })
 
@@ -280,8 +269,10 @@ class SocialLoginFragment : Fragment() {
         val credentialGoogle = GoogleAuthProvider.getCredential(account!!.idToken, null)
         mFirebaseGoogleAuth.signInWithCredential(credentialGoogle).addOnCompleteListener {
             if (it.isSuccessful) {
-                Toast.makeText(context, "Google sign Successful:(", Toast.LENGTH_LONG).show()
-                callNewFragment()
+               /* Toast.makeText(context, "Google sign Successful:(", Toast.LENGTH_LONG).show()*/
+               /* callNewFragment()*/
+                callLoginFragment()
+
             } else {
                 Toast.makeText(context, "Google sign in failed:(", Toast.LENGTH_LONG).show()
             }
@@ -324,6 +315,14 @@ class SocialLoginFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+    }
+    fun callLoginFragment(){
+        val mainFragment = LoginFrag()
+        var transaction: FragmentTransaction =
+            activity!!.supportFragmentManager!!.beginTransaction()
+        transaction!!.replace(R.id.container, mainFragment)
+        transaction!!.addToBackStack(null)
+        transaction!!.commit()
     }
 }
 

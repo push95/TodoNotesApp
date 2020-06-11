@@ -35,7 +35,6 @@ class MainFragment : Fragment() {
     ): View? {
         /** DATA BINDING **/
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false)
-        //binding = FragmentMainBinding.inflate(layoutInflater)
         return binding.root
     }
 

@@ -12,17 +12,15 @@
         android:roundIcon="@drawable/todo_notes"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.anotherExample.OTPActivity"></activity>
-        <activity android:name=".activity.anotherExample.Main2Activity"></activity>
+        <activity android:name=".MvvmRetrofit.single_movie.SingleMovieActivity"></activity>
+        <activity android:name=".activity.anotherExample.OTPActivity" />
+        <activity android:name=".activity.anotherExample.Main2Activity" />
         <activity android:name=".activity.anotherExample.TabLayoutActivity" />
-        <activity android:name=".activity.anotherExample.NavigationDrawerActivity">
-
-        </activity>
+        <activity android:name=".activity.anotherExample.NavigationDrawerActivity"></activity>
         <activity android:name=".recyclerView_mvvm_livedata.RecyclerViewMvvmActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

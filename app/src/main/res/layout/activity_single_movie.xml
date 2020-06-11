@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MvvmRetrofit.single_movie.SingleMovieActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+        
+        <TextView
+            android:id="@+id/tv_noDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="No Data Found"
+            android:textColor="@color/colorGrey"
+            android:textSize="30dp"/>
+        
+    </LinearLayout>
+
+
+    
+    <ImageView
+        android:id="@+id/iv_movieScreen"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:src="@drawable/blub_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_movieTitle"
+        android:text="End Game"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"
+        android:layout_marginLeft="@dimen/dimen10"
+        app:layout_constraintTop_toBottomOf="@+id/iv_movieScreen"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_movieSubTitle"
+        android:text="End Game"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"
+        android:layout_marginLeft="@dimen/dimen10"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movieTitle"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_movieInfo"
+        android:text="Movie Info"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"
+        android:layout_marginLeft="@dimen/dimen10"
+        android:layout_marginTop="@dimen/dimen10"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movieSubTitle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_releaseDateStatic"
+        android:text="Release Date:"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorGrey"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_movieInfo"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movieInfo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_releaseDateDynamic"
+        android:text="30 june 2020"
+        android:textSize="20dp"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textColor="@color/colorGrey"
+        android:paddingLeft="@dimen/dimen3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movieInfo"
+        app:layout_constraintLeft_toRightOf="@+id/tv_releaseDateStatic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ratingStatic"
+        android:text="Rating :"
+        android:textSize="20dp"
+        android:textColor="@color/colorGrey"
+        app:layout_constraintTop_toBottomOf="@+id/tv_releaseDateStatic"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_releaseDateStatic"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_ratingDynamic"
+        android:text="8.5"
+        android:textSize="20dp"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textColor="@color/colorGrey"
+        android:paddingLeft="@dimen/dimen3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_releaseDateStatic"
+        app:layout_constraintLeft_toRightOf="@+id/tv_ratingStatic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_runtimeStatic"
+        android:text="RunTime :"
+        android:textSize="20dp"
+        android:textColor="@color/colorGrey"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ratingStatic"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_releaseDateStatic"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_runTimeDynamic"
+        android:text="181 Minutes"
+        android:textSize="20dp"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textColor="@color/colorGrey"
+        android:paddingLeft="@dimen/dimen3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ratingStatic"
+        app:layout_constraintLeft_toRightOf="@+id/tv_runtimeStatic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_budgetStatic"
+        android:text="Budget :"
+        android:textSize="20dp"
+        android:textColor="@color/colorGrey"
+        app:layout_constraintTop_toBottomOf="@+id/tv_runtimeStatic"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_releaseDateStatic"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_budgetDynamic"
+        android:text="2,3456789"
+        android:singleLine="true"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorGrey"
+        android:paddingLeft="@dimen/dimen3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_runtimeStatic"
+        app:layout_constraintLeft_toRightOf="@+id/tv_budgetStatic"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_revenueStatic"
+        android:text="Revenue :"
+        android:textSize="20dp"
+        android:textColor="@color/colorGrey"
+        app:layout_constraintTop_toBottomOf="@+id/tv_budgetStatic"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_releaseDateStatic"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_revenueDynamic"
+        android:text="2,3456789"
+        android:textSize="20dp"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textColor="@color/colorGrey"
+        android:paddingLeft="@dimen/dimen3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_budgetStatic"
+        app:layout_constraintLeft_toRightOf="@+id/tv_budgetStatic"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_overview"
+        android:text="Overview"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_revenueStatic"
+        app:layout_constraintTop_toBottomOf="@+id/tv_revenueStatic"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_overviewDynamic"
+        android:text="Overview"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:singleLine="false"
+        android:textColor="@color/colorGrey"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_overview"
+        app:layout_constraintTop_toBottomOf="@+id/tv_overview"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

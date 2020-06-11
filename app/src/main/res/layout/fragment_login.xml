@@ -3,39 +3,369 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-       <!-- <variable
-            name="login"
-            type="com.example.todonotesapp.fragment.notesFragment.LoginFrag" />
-        <import type="android.view.View" />-->
-    </data>
+      
+      
+          </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+      android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="70dp"
         tools:context=".fragment.notesFragment.LoginFrag">
 
 
-        <Button
-            android:id="@+id/btn_google"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="266dp"
-            android:text="Login with Google"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/tv_id_Static"
+            android:text="id :"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintLeft_toLeftOf="parent"
+            />
 
-        <Button
-            android:id="@+id/btn_fb"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="54dp"
-            android:text="Login with Facebook"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_google" />
+            android:id="@+id/tv_id_Dynamic"
+            android:text="540"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_id_Static"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_nameStatic"
+            android:text="Name"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_id_Static"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_id_Static"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_nameDynamic"
+            android:text="8.5"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_id_Static"
+            app:layout_constraintLeft_toRightOf="@+id/tv_nameStatic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_emailStatic"
+            android:text="email"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nameStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_nameStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_enailDynamic"
+            android:text="8.5"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nameStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_emailStatic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_phoneStatic"
+            android:text="Phone Number :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_emailStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_emailStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_phoneDynamic"
+            android:text="8.5"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_emailStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_phoneStatic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_dobStatic"
+            android:text="DOB :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phoneStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_phoneStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_DoBDynamic"
+            android:text="8.5"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phoneStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_dobStatic"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_genderStatic"
+            android:text="Gender :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dobStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_dobStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_genderDynamic"
+            android:text="Male"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dobStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_genderStatic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_cityStatic"
+            android:text="city :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_genderStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_genderStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_cityDynamic"
+            android:text="Muradnagar"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_genderStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_cityStatic"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_exitStatic"
+            android:text="is_existed :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cityStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_cityStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_exitDynamic"
+            android:text="0"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cityStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_exitStatic"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_deleteStatic"
+            android:text="is_deleted :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_exitStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_exitStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_deleteDynamic"
+            android:text="0"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_exitStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_deleteStatic"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_activeStatic"
+            android:text="is_active :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_deleteStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_deleteStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_activeDynamic"
+            android:text="1"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_deleteStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_activeStatic"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_userTypeStatic"
+            android:text="user_type :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_activeStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_activeStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_userTypeDynamic"
+            android:text="Muradnagar"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_activeStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_userTypeStatic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_deviceIdStatic"
+            android:text="device_id :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userTypeStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_userTypeStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_deviceIDDynamic"
+            android:text="1"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userTypeStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_deviceIdStatic"/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_deviceTypeStatic"
+            android:text="device_type :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_deviceIdStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_deviceIdStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_deviceTypeDynamic"
+            android:text="1"
+            android:textSize="20dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_deviceIdStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_deviceTypeStatic"/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_tokenStatic"
+            android:text="token :"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_deviceTypeStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_deviceTypeStatic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_tokenDynamic"
+            android:text="1"
+            android:textSize="20dp"
+            android:singleLine="false"
+            android:textStyle="bold"
+            android:maxLines="8"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_deviceTypeStatic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_tokenStatic"/>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

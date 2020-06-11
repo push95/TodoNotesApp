@@ -3,7 +3,10 @@ package com.example.todonotesapp.activity.anotherExample
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import com.example.todonotesapp.R
+import com.example.todonotesapp.utils.BottomSheetFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
@@ -11,11 +14,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main2.*
 
-class Main2Activity : AppCompatActivity() {
+class Main2Activity : AppCompatActivity(){
     /*lateinit var binding: ActivityMain2Binding*/
 
     lateinit var mAuth:FirebaseAuth
     var mCurrentUser: FirebaseUser?=null
+    var btn_signOut: Button?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,13 +27,13 @@ class Main2Activity : AppCompatActivity() {
        setContentView(R.layout.layout_social_login)
         mAuth =FirebaseAuth.getInstance()
         mCurrentUser=mAuth.currentUser
-        /*sign_out_button.setOnClickListener{
-            val bottomDialog =BottomSheetDialog(this, R.style.BottomSheetDialog)
+        sign_out_button.setOnClickListener{
+            /*val bottomDialog =BottomSheetDialog(this, R.style.BottomSheetDialog)
             val view =layoutInflater.inflate(R.layout.dialog_otp, null)
             bottomDialog.setContentView(view)
-            bottomDialog.show()
-
-        }*/
+            bottomDialog.show()*/
+            showBottomSheetDialogFragment()
+        }
 
         }
 
@@ -42,6 +46,11 @@ class Main2Activity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun showBottomSheetDialogFragment() {
+        val bottomSheetFragment = BottomSheetFragment()
+        bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 
 }
