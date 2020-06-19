@@ -1,30 +1,29 @@
 package com.example.todonotesapp.fragment.sociallogin
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.telephony.TelephonyManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.todonotesapp.R
 import com.example.todonotesapp.databinding.FragmentSocialLoginBinding
-import com.example.todonotesapp.fragment.notesFragment.LoginFrag
 import com.example.todonotesapp.fragment.notesFragment.MainFragment
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.example.todonotesapp.office_api_mvvm.model.login.request.LoginUserRequest
+import com.example.todonotesapp.office_api_mvvm.model.login.response.UserLoginMainResponse
+import com.example.todonotesapp.office_api_mvvm.model.socialEntry.request.response.SocialEntryResponseMain
+import com.example.todonotesapp.office_api_mvvm.network.RetrofitClientApi
+import com.example.todonotesapp.office_api_mvvm.view.LoginFrag
+import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -40,8 +39,11 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import com.hbb20.CountryCodePicker
-import com.mukesh.OnOtpCompletionListener
-import com.mukesh.OtpView
+import org.json.JSONException
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.net.URL
 import java.util.concurrent.TimeUnit
 
 class SocialLoginFragment : Fragment() {
@@ -50,7 +52,8 @@ class SocialLoginFragment : Fragment() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var mGoogleSignInOptions: GoogleSignInOptions
     private lateinit var mFirebaseGoogleAuth: FirebaseAuth
-
+    var telephonyManager: TelephonyManager? = null
+    private var progressBar :ProgressBar?=null
 
     /**  Mobile  verify **/
     lateinit var verificationCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -61,7 +64,9 @@ class SocialLoginFragment : Fragment() {
     var mOTP: String? = null
     var isOTPData: String? = null
     var ccp: CountryCodePicker? = null
+    var phoneNo: LoginUserRequest? = null
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+
 
 
     /**  Binding **/
@@ -82,6 +87,10 @@ class SocialLoginFragment : Fragment() {
         mFirebaseMobileAuth = FirebaseAuth.getInstance()
         mFirebaseGoogleAuth = FirebaseAuth.getInstance()
         binding.ccp!!.registerCarrierNumberEditText(binding.etMobile)
+        binding.progress!!.isIndeterminate=true
+      //  phone_no=completeNumber as LoginUserRequest
+
+        // show it
 
         // for google
         configureGoogleSignIn()
@@ -102,12 +111,13 @@ class SocialLoginFragment : Fragment() {
         // callback Registration
         LoginManager.getInstance()
             .registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
-                override fun onSuccess(result: LoginResult?) {
+                override fun onSuccess(loginResult: LoginResult?) {
                     Toast.makeText(context, "Login Success", Toast.LENGTH_LONG).show()
-                    callLoginFragment()
+                    Log.i("Response", loginResult.toString());
+                    binding.progress!!.visibility = View.VISIBLE
+                    loginResult?.accessToken?.let { getUserProfile(it) }
 
                 }
-
                 override fun onCancel() {
                     Toast.makeText(context, "Login Cancelled", Toast.LENGTH_LONG).show()
                 }
@@ -129,13 +139,14 @@ class SocialLoginFragment : Fragment() {
                     binding.etMobile.error = "failed"
                 }
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 completeNumber = binding.ccp!!.fullNumberWithPlus
                 if (completeNumber.toString()
                         .isNotEmpty() && completeNumber.toString().length > 12
                 ) {
                     sendVerificationCode(completeNumber.toString())
-                    openBottomSheet(isOTPData.toString(),completeNumber)
+                    openBottomSheet(isOTPData.toString(), completeNumber)
                 }
             }
 
@@ -144,13 +155,13 @@ class SocialLoginFragment : Fragment() {
         verificationCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
                 //Toast.makeText(context, "Verification Completed", Toast.LENGTH_SHORT).show()
-                Log.d("verified" , "onVerificationCompleted$phoneAuthCredential")
-               var code: String= phoneAuthCredential.smsCode.toString()
-                        if (code != null){
-                            val credential  =PhoneAuthProvider.getCredential(mOTP.toString(),code)
-                            signInWithPhone(credential)
+                Log.d("verified", "onVerificationCompleted$phoneAuthCredential")
+                var code: String = phoneAuthCredential.smsCode.toString()
+                if (code != null) {
+                    val credential = PhoneAuthProvider.getCredential(mOTP.toString(), code)
+                    signInWithPhone(credential)
 
-                        }
+                }
                 //signInWithPhone(phoneAuthCredential);
             }
 
@@ -164,22 +175,120 @@ class SocialLoginFragment : Fragment() {
                     Log.e("PHONEAUTh", "SMS Quote Exceeded")
                 }
             }
+
             override fun onCodeSent(otpCode: String, token: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(otpCode, token)
                 mOTP = otpCode
                 Toast.makeText(context, "Code Sent", Toast.LENGTH_SHORT).show()
+                callLoginApi(completeNumber)
+
             }
         }
         return binding.root
     }
 
+    private fun callLoginApi(completeNumber: String?) {
+        val call: Call<UserLoginMainResponse>? = completeNumber?.let {
+            RetrofitClientApi.getRetrofitClientInterface.getUserMobile(
+            completeNumber as LoginUserRequest)
+        }
+        call!!.enqueue(object : Callback<UserLoginMainResponse> {
+            override fun onResponse(
+                call: Call<UserLoginMainResponse>,
+                response: Response<UserLoginMainResponse>
+            ) {
+                if (response != null) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UserLoginMainResponse>, t: Throwable) {
+                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
+    }
+
+
+    private fun getUserProfile(currentAccessToken: AccessToken) {
+        val request = GraphRequest.newMeRequest(
+            currentAccessToken
+        ) { `object`, response ->
+            try {
+                val id = `object`.getString("id")
+                Log.i("id", id)
+                val name = `object`.getString("name")
+                Log.i("name", name)
+                val email = `object`.getString("email")
+                Log.i("email", email)
+                val profilePic = URL("https://graph.facebook.com/$id/picture?")
+                val image = profilePic.toString()
+                Log.i("profile_pic", image + "")
+                callSocialEntryApi(id, name, email, image)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+        val parameters = Bundle()
+        parameters.putString("fields", "id, name, email")
+        request.parameters = parameters
+        request.executeAsync()
+
+    }
+
+    private fun callSocialEntryApi(id: String, name: String, email: String, image: String) {
+        val call: Call<SocialEntryResponseMain> =
+            RetrofitClientApi.getRetrofitClientInterface.getUserResult(
+                name, email, image, "mdmfnniidndndn", "Android"
+            )
+        call.enqueue(object : Callback<SocialEntryResponseMain> {
+            override fun onResponse(call: Call<SocialEntryResponseMain>, response: Response<SocialEntryResponseMain>
+            ) {
+                Log.d("SocialLoginFragment", "onResponse$response")
+                if (response != null && response.isSuccessful) {
+                   binding.progress!!.visibility = View.GONE
+                    try {
+                        val responseData = response?.body()
+                        if (responseData?.status ==true) {
+
+                            val loginFrag = LoginFrag()
+                            val args = Bundle()
+                            args.putSerializable("response", responseData!!.result)
+                            loginFrag.arguments = args
+                            var transaction: FragmentTransaction =
+                                activity!!.supportFragmentManager!!.beginTransaction()
+                            transaction!!.replace(R.id.container, loginFrag)
+                            transaction!!.addToBackStack(null)
+                            transaction!!.commit()
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+
+                        }
+
+
+                    } catch (e: Exception) {
+
+                    }
+
+
+                }
+            }
+
+            override fun onFailure(call: Call<SocialEntryResponseMain>, t: Throwable) {
+                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+    }
 
     private fun openBottomSheet(mOTP: String, completeNumber: String?) {
         var bottomSheetFragment = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog)
         val view = layoutInflater.inflate(R.layout.dialog_otp, null)
         bottomSheetFragment.setContentView(view)
-        var number :String?=null
-        number=completeNumber
+        var number: String? = null
+        number = completeNumber
         var btnNext: ImageView? = null
         var resendCode: TextView? = null
         var mMobileNumberTV: TextView? = null
@@ -190,13 +299,13 @@ class SocialLoginFragment : Fragment() {
         resendCode = view.findViewById(R.id.resendCode)
         OTPTimer = view.findViewById(R.id.OTPTimer)
         mOTPVerifyET = view.findViewById(R.id.et_verifyOtp_dialog)
-        mMobileNumberTV=view.findViewById(R.id.tv_mobile_number)
-        mMobileNumberTV.text=number
-        if (mOTP !=null){
+        mMobileNumberTV = view.findViewById(R.id.tv_mobile_number)
+        mMobileNumberTV.text = number
+        if (mOTP != null) {
             bottomSheetFragment.dismiss()
 
         }
-        isOTPData =mOTPVerifyET.text.toString()
+        isOTPData = mOTPVerifyET.text.toString()
         resendCode.setOnClickListener {
             val timer = object : CountDownTimer(30000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
@@ -216,13 +325,14 @@ class SocialLoginFragment : Fragment() {
             timer.start()
         }
         btnNext!!.setOnClickListener {
-callNewFragment()
-               /*val credential  =PhoneAuthProvider.getCredential(mOTP, isOTPData!!)
-               signInWithPhone(credential)*/
+            callNewFragment()
+            /*val credential  =PhoneAuthProvider.getCredential(mOTP, isOTPData!!)
+            signInWithPhone(credential)*/
 
-           }
+        }
         bottomSheetFragment.show()
     }
+
     private fun callNewFragment() {
         val mainFragment = MainFragment()
         var transaction: FragmentTransaction =
@@ -236,9 +346,9 @@ callNewFragment()
         mFirebaseMobileAuth.signInWithCredential(credential)
             .addOnCompleteListener(OnCompleteListener<AuthResult> { task ->
                 if (task.isSuccessful) {
-                  /*  Toast.makeText(context, "Login OTP SuccessFull", Toast.LENGTH_SHORT).show()*/
+                    /*  Toast.makeText(context, "Login OTP SuccessFull", Toast.LENGTH_SHORT).show()*/
                     callNewFragment()
-                } else{
+                } else {
                     /*Toast.makeText(context, "Incorrect OTP", Toast.LENGTH_SHORT).show()*/
                 }
             })
@@ -269,9 +379,9 @@ callNewFragment()
         val credentialGoogle = GoogleAuthProvider.getCredential(account!!.idToken, null)
         mFirebaseGoogleAuth.signInWithCredential(credentialGoogle).addOnCompleteListener {
             if (it.isSuccessful) {
-               /* Toast.makeText(context, "Google sign Successful:(", Toast.LENGTH_LONG).show()*/
-               /* callNewFragment()*/
-                callLoginFragment()
+                /* Toast.makeText(context, "Google sign Successful:(", Toast.LENGTH_LONG).show()*/
+                /* callNewFragment()*/
+               // callLoginFragment()
 
             } else {
                 Toast.makeText(context, "Google sign in failed:(", Toast.LENGTH_LONG).show()
@@ -316,7 +426,8 @@ callNewFragment()
         super.onStop()
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
     }
-    fun callLoginFragment(){
+
+    fun callLoginFragment() {
         val mainFragment = LoginFrag()
         var transaction: FragmentTransaction =
             activity!!.supportFragmentManager!!.beginTransaction()

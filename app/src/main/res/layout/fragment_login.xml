@@ -14,7 +14,8 @@
       android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="70dp"
-        tools:context=".fragment.notesFragment.LoginFrag">
+        tools:context=".office_api_mvvm.view.LoginFrag">
+
 
 
         <TextView
@@ -74,8 +75,7 @@
             android:textSize="20dp"
             android:textColor="@color/colorGrey"
             app:layout_constraintTop_toBottomOf="@+id/tv_nameStatic"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_nameStatic"
-            />
+            app:layout_constraintLeft_toLeftOf="@+id/tv_nameStatic" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
             android:id="@+id/tv_enailDynamic"
             android:text="8.5"
             android:textSize="20dp"
-            android:singleLine="true"
+            android:maxLines="3"
             android:textStyle="bold"
             android:textColor="@color/colorGrey"
             android:paddingLeft="@dimen/dimen3"
@@ -167,7 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_cityStatic"
-            android:text="city :"
+            android:text="user pic :"
             android:textSize="20dp"
             android:textColor="@color/colorGrey"
             app:layout_constraintTop_toBottomOf="@+id/tv_genderStatic"
@@ -180,7 +180,7 @@
             android:id="@+id/tv_cityDynamic"
             android:text="Muradnagar"
             android:textSize="20dp"
-            android:singleLine="true"
+            android:maxLines="10"
             android:textStyle="bold"
             android:textColor="@color/colorGrey"
             android:paddingLeft="@dimen/dimen3"
@@ -194,6 +194,7 @@
             android:id="@+id/tv_exitStatic"
             android:text="is_existed :"
             android:textSize="20dp"
+            android:layout_marginTop="30dp"
             android:textColor="@color/colorGrey"
             app:layout_constraintTop_toBottomOf="@+id/tv_cityStatic"
             app:layout_constraintLeft_toLeftOf="@+id/tv_cityStatic"
@@ -205,6 +206,7 @@
             android:id="@+id/tv_exitDynamic"
             android:text="0"
             android:textSize="20dp"
+            android:layout_marginTop="30dp"
             android:singleLine="true"
             android:textStyle="bold"
             android:textColor="@color/colorGrey"
@@ -213,7 +215,7 @@
             app:layout_constraintLeft_toRightOf="@+id/tv_exitStatic"/>
 
 
-        <TextView
+       <!-- <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_deleteStatic"
@@ -261,9 +263,9 @@
             android:paddingLeft="@dimen/dimen3"
             app:layout_constraintTop_toBottomOf="@+id/tv_deleteStatic"
             app:layout_constraintLeft_toRightOf="@+id/tv_activeStatic"/>
+-->
 
-
-        <TextView
+       <!-- <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_userTypeStatic"
@@ -296,9 +298,9 @@
             android:textColor="@color/colorGrey"
             app:layout_constraintTop_toBottomOf="@+id/tv_userTypeStatic"
             app:layout_constraintLeft_toLeftOf="@+id/tv_userTypeStatic"
-            />
+            />-->
 
-        <TextView
+       <!-- <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_deviceIDDynamic"
@@ -309,11 +311,11 @@
             android:textColor="@color/colorGrey"
             android:paddingLeft="@dimen/dimen3"
             app:layout_constraintTop_toBottomOf="@+id/tv_userTypeStatic"
-            app:layout_constraintLeft_toRightOf="@+id/tv_deviceIdStatic"/>
+            app:layout_constraintLeft_toRightOf="@+id/tv_deviceIdStatic"/>-->
 
 
 
-        <TextView
+       <!-- <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_deviceTypeStatic"
@@ -335,7 +337,7 @@
             android:textColor="@color/colorGrey"
             android:paddingLeft="@dimen/dimen3"
             app:layout_constraintTop_toBottomOf="@+id/tv_deviceIdStatic"
-            app:layout_constraintLeft_toRightOf="@+id/tv_deviceTypeStatic"/>
+            app:layout_constraintLeft_toRightOf="@+id/tv_deviceTypeStatic"/>-->
 
 
 
@@ -345,9 +347,10 @@
             android:id="@+id/tv_tokenStatic"
             android:text="token :"
             android:textSize="20dp"
+            android:layout_marginTop="30dp"
             android:textColor="@color/colorGrey"
-            app:layout_constraintTop_toBottomOf="@+id/tv_deviceTypeStatic"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_deviceTypeStatic"
+            app:layout_constraintTop_toBottomOf="@+id/tv_exitStatic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_exitStatic"
             />
 
         <TextView
@@ -355,17 +358,44 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_tokenDynamic"
             android:text="1"
+            android:layout_marginTop="30dp"
             android:textSize="20dp"
             android:singleLine="false"
             android:textStyle="bold"
             android:maxLines="8"
             android:textColor="@color/colorGrey"
             android:paddingLeft="@dimen/dimen3"
-            app:layout_constraintTop_toBottomOf="@+id/tv_deviceTypeStatic"
+            app:layout_constraintTop_toBottomOf="@+id/tv_exitStatic"
             app:layout_constraintLeft_toRightOf="@+id/tv_tokenStatic"/>
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_messageStatic"
+            android:text="message:"
+            android:layout_marginTop="30dp"
+            android:textSize="20dp"
+            android:textColor="@color/colorGrey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tokenDynamic"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_tokenStatic"
+            />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_messageDynamic"
+            android:text="1"
+            android:layout_marginTop="30dp"
+            android:textSize="20dp"
+            android:singleLine="false"
+            android:textStyle="bold"
+            android:maxLines="8"
+            android:textColor="@color/colorGrey"
+            android:paddingLeft="@dimen/dimen3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tokenDynamic"
+            app:layout_constraintLeft_toRightOf="@+id/tv_messageStatic"
+           />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

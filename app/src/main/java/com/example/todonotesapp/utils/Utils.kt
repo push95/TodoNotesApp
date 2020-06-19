@@ -3,6 +3,7 @@ package com.example.todonotesapp.utils
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.example.todonotesapp.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -27,6 +28,10 @@ class Utils {
 
         fun bottomDialog(context: Context? ,view: View){
 
+        }
+
+        fun Context.toast(error :String){
+            Toast.makeText(this, error ,Toast.LENGTH_SHORT).show()
         }
     }
 
