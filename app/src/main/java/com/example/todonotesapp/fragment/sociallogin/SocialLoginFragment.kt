@@ -54,6 +54,7 @@ class SocialLoginFragment : Fragment() {
     private lateinit var mFirebaseGoogleAuth: FirebaseAuth
     var telephonyManager: TelephonyManager? = null
     private var progressBar :ProgressBar?=null
+    var loginUserRequest :LoginUserRequest?=null
 
     /**  Mobile  verify **/
     lateinit var verificationCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -81,8 +82,7 @@ class SocialLoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_social_login, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_social_login, container, false)
         callbackManager = CallbackManager.Factory.create()
         mFirebaseMobileAuth = FirebaseAuth.getInstance()
         mFirebaseGoogleAuth = FirebaseAuth.getInstance()
@@ -132,9 +132,9 @@ class SocialLoginFragment : Fragment() {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                completeNumber = binding.ccp!!.fullNumberWithPlus
-                if (completeNumber.toString()
-                        .isNotEmpty() && completeNumber.toString().length < 12
+              completeNumber = binding.ccp!!.fullNumberWithPlus
+                //phoneNo = binding.ccp!!.fullNumberWithPlus as LoginUserRequest
+                if (completeNumber.toString().isNotEmpty() && completeNumber.toString().length < 12
                 ) {
                     binding.etMobile.error = "failed"
                 }
@@ -142,8 +142,8 @@ class SocialLoginFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 completeNumber = binding.ccp!!.fullNumberWithPlus
-                if (completeNumber.toString()
-                        .isNotEmpty() && completeNumber.toString().length > 12
+               // completeNumber = binding.ccp!!.fullNumberWithPlus as LoginUserRequest
+                if (completeNumber.toString().isNotEmpty() && completeNumber.toString().length > 12
                 ) {
                     sendVerificationCode(completeNumber.toString())
                     openBottomSheet(isOTPData.toString(), completeNumber)
@@ -181,16 +181,16 @@ class SocialLoginFragment : Fragment() {
                 mOTP = otpCode
                 Toast.makeText(context, "Code Sent", Toast.LENGTH_SHORT).show()
                 callLoginApi(completeNumber)
-
             }
         }
         return binding.root
     }
-
     private fun callLoginApi(completeNumber: String?) {
+        val loginUserRequest=LoginUserRequest()
+        loginUserRequest.phone_no=completeNumber
+
         val call: Call<UserLoginMainResponse>? = completeNumber?.let {
-            RetrofitClientApi.getRetrofitClientInterface.getUserMobile(
-            completeNumber as LoginUserRequest)
+            RetrofitClientApi.getRetrofitClientInterface.getUserMobile(loginUserRequest)
         }
         call!!.enqueue(object : Callback<UserLoginMainResponse> {
             override fun onResponse(
@@ -203,13 +203,9 @@ class SocialLoginFragment : Fragment() {
                     }
                 }
             }
-
             override fun onFailure(call: Call<UserLoginMainResponse>, t: Throwable) {
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-            }
+                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()}
         })
-
-
     }
 
 
@@ -242,18 +238,15 @@ class SocialLoginFragment : Fragment() {
     private fun callSocialEntryApi(id: String, name: String, email: String, image: String) {
         val call: Call<SocialEntryResponseMain> =
             RetrofitClientApi.getRetrofitClientInterface.getUserResult(
-                name, email, image, "mdmfnniidndndn", "Android"
-            )
+                name, email, image, "mdmfnniidndndn", "Android")
         call.enqueue(object : Callback<SocialEntryResponseMain> {
-            override fun onResponse(call: Call<SocialEntryResponseMain>, response: Response<SocialEntryResponseMain>
-            ) {
+            override fun onResponse(call: Call<SocialEntryResponseMain>, response: Response<SocialEntryResponseMain>) {
                 Log.d("SocialLoginFragment", "onResponse$response")
                 if (response != null && response.isSuccessful) {
                    binding.progress!!.visibility = View.GONE
                     try {
                         val responseData = response?.body()
                         if (responseData?.status ==true) {
-
                             val loginFrag = LoginFrag()
                             val args = Bundle()
                             args.putSerializable("response", responseData!!.result)
@@ -264,15 +257,9 @@ class SocialLoginFragment : Fragment() {
                             transaction!!.addToBackStack(null)
                             transaction!!.commit()
                             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-
                         }
-
-
                     } catch (e: Exception) {
-
                     }
-
-
                 }
             }
 

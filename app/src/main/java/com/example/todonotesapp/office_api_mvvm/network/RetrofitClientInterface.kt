@@ -18,8 +18,7 @@ interface RetrofitClientInterface {
                     ) : Call<SocialEntryResponseMain>
 
 
-    @Headers("Content-Type : application/json")
     @POST("login")
-    fun getUserMobile(@Body phone_no: LoginUserRequest): Call<UserLoginMainResponse>
+    fun getUserMobile(@Body phone_no: LoginUserRequest?): Call<UserLoginMainResponse>
 
 }
