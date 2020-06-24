@@ -1,8 +1,9 @@
 package com.example.todonotesapp.office_api_mvvm.model.login.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class UserLoginResults {
+class UserLoginResults : Serializable {
 
     @SerializedName("token")
     public var token : String?=null

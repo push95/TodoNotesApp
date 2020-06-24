@@ -15,12 +15,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.todonotesapp.MvvmNewsRetrofit.repository.NewsRepos.getInstance
 import com.example.todonotesapp.R
 import com.example.todonotesapp.databinding.FragmentSocialLoginBinding
 import com.example.todonotesapp.fragment.notesFragment.MainFragment
 import com.example.todonotesapp.office_api_mvvm.model.login.request.LoginUserRequest
 import com.example.todonotesapp.office_api_mvvm.model.login.response.UserLoginMainResponse
 import com.example.todonotesapp.office_api_mvvm.model.socialEntry.request.response.SocialEntryResponseMain
+import com.example.todonotesapp.office_api_mvvm.network.APIClient
 import com.example.todonotesapp.office_api_mvvm.network.RetrofitClientApi
 import com.example.todonotesapp.office_api_mvvm.view.LoginFrag
 import com.facebook.*
@@ -54,7 +56,8 @@ class SocialLoginFragment : Fragment() {
     private lateinit var mFirebaseGoogleAuth: FirebaseAuth
     var telephonyManager: TelephonyManager? = null
     private var progressBar :ProgressBar?=null
-    var loginUserRequest :LoginUserRequest?=null
+    val loginUserRequest=LoginUserRequest()
+
 
     /**  Mobile  verify **/
     lateinit var verificationCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -65,8 +68,15 @@ class SocialLoginFragment : Fragment() {
     var mOTP: String? = null
     var isOTPData: String? = null
     var ccp: CountryCodePicker? = null
-    var phoneNo: LoginUserRequest? = null
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+
+
+    //api call split
+    var phoneNo: String? = null
+    var mobile:String?=null
+    var withOutCode:String?=null
+    var ext:String = ""
+    var phoneN:String? = ""
 
 
 
@@ -88,6 +98,7 @@ class SocialLoginFragment : Fragment() {
         mFirebaseGoogleAuth = FirebaseAuth.getInstance()
         binding.ccp!!.registerCarrierNumberEditText(binding.etMobile)
         binding.progress!!.isIndeterminate=true
+        loginUserRequest.phone_no=completeNumber
       //  phone_no=completeNumber as LoginUserRequest
 
         // show it
@@ -132,7 +143,7 @@ class SocialLoginFragment : Fragment() {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-              completeNumber = binding.ccp!!.fullNumberWithPlus
+                 completeNumber = binding.ccp!!.fullNumberWithPlus
                 //phoneNo = binding.ccp!!.fullNumberWithPlus as LoginUserRequest
                 if (completeNumber.toString().isNotEmpty() && completeNumber.toString().length < 12
                 ) {
@@ -146,7 +157,7 @@ class SocialLoginFragment : Fragment() {
                 if (completeNumber.toString().isNotEmpty() && completeNumber.toString().length > 12
                 ) {
                     sendVerificationCode(completeNumber.toString())
-                    openBottomSheet(isOTPData.toString(), completeNumber)
+                    //openBottomSheet(isOTPData.toString(), completeNumber)
                 }
             }
 
@@ -180,27 +191,42 @@ class SocialLoginFragment : Fragment() {
                 super.onCodeSent(otpCode, token)
                 mOTP = otpCode
                 Toast.makeText(context, "Code Sent", Toast.LENGTH_SHORT).show()
-                callLoginApi(completeNumber)
+
+
+              //  callLoginApi(loginUserRequest)
             }
         }
         return binding.root
     }
-    private fun callLoginApi(completeNumber: String?) {
+    private fun callLoginApi(phoneN: String?) {
         val loginUserRequest=LoginUserRequest()
-        loginUserRequest.phone_no=completeNumber
-
-        val call: Call<UserLoginMainResponse>? = completeNumber?.let {
-            RetrofitClientApi.getRetrofitClientInterface.getUserMobile(loginUserRequest)
+        loginUserRequest.phone_no=phoneN
+        val call: Call<UserLoginMainResponse>? = loginUserRequest?.let {
+            APIClient.getRetrofitClientInterface.getUserMobile(loginUserRequest)
         }
         call!!.enqueue(object : Callback<UserLoginMainResponse> {
-            override fun onResponse(
-                call: Call<UserLoginMainResponse>,
-                response: Response<UserLoginMainResponse>
+            override fun onResponse(call: Call<UserLoginMainResponse>, response: Response<UserLoginMainResponse>
             ) {
-                if (response != null) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                Log.d("Call Login APi", "onResponse$response")
+                if (response != null && response.isSuccessful) {
+                       // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                    try {
+                        val responseData = response?.body()
+                        if (responseData?.status ==true) {
+                            val socialFragment = SocialFragment()
+                            val args = Bundle()
+                            args.putSerializable("response", responseData)
+                            socialFragment.arguments = args
+                            var transaction: FragmentTransaction =
+                                activity!!.supportFragmentManager!!.beginTransaction()
+                            transaction!!.replace(R.id.container, socialFragment)
+                            transaction!!.addToBackStack(null)
+                            transaction!!.commit()
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: Exception) {
                     }
+
                 }
             }
             override fun onFailure(call: Call<UserLoginMainResponse>, t: Throwable) {
@@ -241,7 +267,7 @@ class SocialLoginFragment : Fragment() {
                 name, email, image, "mdmfnniidndndn", "Android")
         call.enqueue(object : Callback<SocialEntryResponseMain> {
             override fun onResponse(call: Call<SocialEntryResponseMain>, response: Response<SocialEntryResponseMain>) {
-                Log.d("SocialLoginFragment", "onResponse$response")
+                Log.d("Call Social Entry", "onResponse$response")
                 if (response != null && response.isSuccessful) {
                    binding.progress!!.visibility = View.GONE
                     try {
@@ -334,7 +360,14 @@ class SocialLoginFragment : Fragment() {
             .addOnCompleteListener(OnCompleteListener<AuthResult> { task ->
                 if (task.isSuccessful) {
                     /*  Toast.makeText(context, "Login OTP SuccessFull", Toast.LENGTH_SHORT).show()*/
-                    callNewFragment()
+                    if (completeNumber!!.startsWith("+") || completeNumber!!.length ==10){
+                        ext= completeNumber!!.substring(0,3)
+                        phoneN=completeNumber!!.substring(3)
+                    }else{
+                        ext = "";
+                        phoneN = completeNumber;
+                    }
+                    callLoginApi(phoneN)
                 } else {
                     /*Toast.makeText(context, "Incorrect OTP", Toast.LENGTH_SHORT).show()*/
                 }
@@ -367,8 +400,6 @@ class SocialLoginFragment : Fragment() {
         mFirebaseGoogleAuth.signInWithCredential(credentialGoogle).addOnCompleteListener {
             if (it.isSuccessful) {
                 /* Toast.makeText(context, "Google sign Successful:(", Toast.LENGTH_LONG).show()*/
-                /* callNewFragment()*/
-               // callLoginFragment()
 
             } else {
                 Toast.makeText(context, "Google sign in failed:(", Toast.LENGTH_LONG).show()

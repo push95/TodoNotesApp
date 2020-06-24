@@ -190,7 +190,6 @@
                 app:ccp_showNameCode="false"
                 app:ccp_showArrow="false"/>
 
-
             <!--<EditText
                 android:id="@+id/et_country"
                 android:layout_weight=".2"
